@@ -12,10 +12,10 @@ const useGeoLocation = () => {
   const [error, setError] = useState<string | GeolocationPositionError>('');
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-      setError('Geolocation is not working!');
-      console.log('Geolocation is not working!');
-      toast.error('Geolocation is not working!');
+    if (typeof window === 'undefined' || !navigator.geolocation) {
+      setError('Geolocation is not available!');
+      console.log('Geolocation is not available!');
+      toast.error('Geolocation is not available!');
       return;
     }
 

@@ -1,4 +1,8 @@
-import { ForecastType } from '@/components/pages/home-page/types';
+import { ForecastType, Weather } from '@/components/pages/home-page/types';
+import {
+  OpenWeatherAPIResponse,
+  OpenWeatherForecastResponse,
+} from '@/types/types';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -38,14 +42,16 @@ export const localTimeConversion = (dt: number, timezone: number) => {
   });
 };
 
-export const convertAPIDataToWeather = (data: any) => {
+export const convertAPIDataToWeather = (
+  data: OpenWeatherAPIResponse
+): Weather => {
   return {
     cityName: data.name,
     country: data.sys.country,
     temperature: `${Math.round(data.main.temp - 273.15)}° C`,
     humidity: `${data.main.humidity}%`,
     windSpeed: `${data.wind.speed} mph`,
-    pressure: data.main.pressure,
+    pressure: `${data.main.pressure}`,
     weatherDescription: data.weather[0]?.description || 'No description',
     weatherIcon: `https://openweathermap.org/img/wn/${data.weather[0]?.icon}@2x.png`,
     localTime: localTimeConversion(data.dt, data.timezone),
@@ -58,10 +64,12 @@ export const convertAPIDataToWeather = (data: any) => {
   };
 };
 
-export const convertAPIDataToForecast = (data: any): ForecastType[] => {
+export const convertAPIDataToForecast = (
+  data: OpenWeatherForecastResponse
+): ForecastType[] => {
   const dailyForecastMap = new Map();
 
-  data.list.forEach((entry: any) => {
+  data.list.forEach((entry) => {
     const date = entry.dt_txt.split(' ')[0];
 
     if (!dailyForecastMap.has(date) || entry.dt_txt.includes('12:00:00')) {

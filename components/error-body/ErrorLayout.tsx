@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { SearchX, ServerOff, Wifi, WifiOff } from 'lucide-react';
+import { SearchX, ServerOff, WifiOff } from 'lucide-react';
 import React, { FC, useCallback } from 'react';
 import { Button } from '../ui/button';
 import ErrorBody from './ErrorBody';
@@ -9,7 +9,7 @@ import ErrorBody from './ErrorBody';
 interface ErrorLayoutProps {
   description: string;
   className?: string;
-  error?: any;
+  error?: Error | null | { message: string };
 }
 
 const ErrorLayout: FC<ErrorLayoutProps> = ({
@@ -19,7 +19,7 @@ const ErrorLayout: FC<ErrorLayoutProps> = ({
 }) => {
   const handleRefresh = useCallback(() => {
     window.location.reload();
-  }, [window]);
+  }, []);
 
   const renderError = useCallback(() => {
     if (!error) return description;

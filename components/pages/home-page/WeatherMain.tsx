@@ -1,13 +1,13 @@
 'use client';
 
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import Image from 'next/image';
 import { Droplets, Wind } from 'lucide-react';
 import { Weather } from './types';
 import { cn, getGreetingFromTime } from '@/lib/utils';
 import WeatherMainLoader from '../../loaders/WeatherMainLoader';
 import { Icons } from '@/public/assets/icons';
-import Map from '@/components/map';
+import DynamicMap from '@/components/map/DynamicMap';
 
 interface WeatherMainProps {
   data: Weather | undefined;
@@ -88,7 +88,7 @@ const WeatherMain: FC<WeatherMainProps> = ({
           </div>
 
           <div className='w-full max-w-[500px] h-[300px]'>
-            <Map lat={data?.coord.lat} lon={data?.coord.lon} />
+            <DynamicMap lat={data?.coord.lat} lon={data?.coord.lon} />
           </div>
         </div>
       </div>

@@ -9,10 +9,6 @@ export const GetForecastData = (
   return useQuery({
     queryKey: ['GetForecastData', coord],
     queryFn: async () => {
-      if (!navigator.onLine) {
-        throw new Error('No internet connection');
-      }
-
       const res = await AXIOS_INSTANCE.get(
         ENDPOINTS.forecast(coord ?? { lat: 0, lon: 0 })
       );

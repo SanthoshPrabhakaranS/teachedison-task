@@ -13,7 +13,7 @@ interface WeatherForNextDaysProps {
   isLoading: boolean;
   isError: boolean;
   isWeatherMainLoading: boolean;
-  error: any;
+  error: Error | null | { message: string };
 }
 
 const WeatherForNextDays: FC<WeatherForNextDaysProps> = ({

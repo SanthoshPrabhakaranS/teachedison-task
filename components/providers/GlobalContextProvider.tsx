@@ -8,10 +8,8 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Coordinates, Weather } from '../pages/home-page/types';
 import { toast } from 'sonner';
 import { Storage } from '@/lib/Storage';
-import { log } from 'node:console';
 
 interface GlobalContextType {
   addLocationToFavorite: (item: string) => void;
@@ -43,8 +41,10 @@ export const GlobalContextProvider = ({
   const [searchInput, setSearchInput] = useState<string>('');
 
   useEffect(() => {
-    const list = storage.getItem('favorites') || [];
-    setFavorites(list);
+    if (typeof window !== 'undefined') {
+      const list = storage.getItem('favorites') || [];
+      setFavorites(list);
+    }
   }, []);
 
   // Add location to favorite
@@ -67,7 +67,7 @@ export const GlobalContextProvider = ({
       setFavorites([...favoritesList, item]);
       toast.success('Location added to favorites');
     },
-    [toast, favorites, storage]
+    [storage]
   );
 
   const values = useMemo(() => {

@@ -25,7 +25,7 @@ const MenuOptions = () => {
     handlePopoverOpen();
     setSearchInput('');
     router.push(ROUTES.FAVORITES);
-  }, [MENU_ITEMS, router, handlePopoverOpen]);
+  }, [router, handlePopoverOpen, setSearchInput]);
 
   return (
     <Popover open={open} onOpenChange={handlePopoverOpen}>

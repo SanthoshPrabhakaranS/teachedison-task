@@ -1,7 +1,6 @@
 'use client';
 
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import Header from '../../header';
+import React, { FC } from 'react';
 import { Weather } from './types';
 import WeatherMain from './WeatherMain';
 import WeatherForNextDays from './WeatherForNextDays';

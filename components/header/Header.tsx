@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Input } from '../ui/input';
 import ThemeToggle from '../toggle-theme';
 import { useWindowWidth } from '../hooks/useWindowWidth';
@@ -27,7 +27,7 @@ const Header = () => {
     return () => {
       debouncedSearch.cancel();
     };
-  }, []);
+  }, [debouncedSearch]);
 
   const handleRouteToHome = useCallback(() => {
     setSearchInput('');

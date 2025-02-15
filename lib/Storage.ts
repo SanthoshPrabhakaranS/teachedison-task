@@ -1,18 +1,27 @@
 export class Storage {
   setItem<T>(key: string, value: T) {
-    localStorage.setItem(key, JSON.stringify(value));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   }
 
-  getItem<T>(key: string) {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
+  getItem(key: string) {
+    if (typeof window !== 'undefined') {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : null;
+    }
+    return null;
   }
 
   removeItem(key: string) {
-    localStorage.removeItem(key);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(key);
+    }
   }
 
   clearStorage() {
-    localStorage.clear();
+    if (typeof window !== 'undefined') {
+      localStorage.clear();
+    }
   }
 }
