@@ -14,3 +14,9 @@ beforeEach(() => {
     prefetch: jest.fn(),
   });
 });
+
+afterAll(() => {
+  if (global.gc) {
+    global.gc();
+  }
+});

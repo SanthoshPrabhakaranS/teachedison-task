@@ -2,12 +2,9 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import Container from '@/components/container';
-import { ThemeProvider } from '@/components/providers/ThemeProvider';
-import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
-import { GlobalContextProvider } from '@/components/providers/GlobalContextProvider';
-import { Toaster } from 'sonner';
 import Header from '@/components/header';
 import NetworkFallback from '@/components/pages/network-fallback/NetworkFallback';
+import AppProviders from '@/components/providers/AppProviders';
 
 const poppins = Poppins({
   weight: ['400', '600'],
@@ -29,24 +26,14 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${poppins.variable} antialiased`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Toaster />
-          <ReactQueryProvider>
-            <GlobalContextProvider>
-              <NetworkFallback>
-                <Container>
-                  <Header />
-                  {children}
-                </Container>
-              </NetworkFallback>
-            </GlobalContextProvider>
-          </ReactQueryProvider>
-        </ThemeProvider>
+        <AppProviders>
+          <NetworkFallback>
+            <Container>
+              <Header />
+              {children}
+            </Container>
+          </NetworkFallback>
+        </AppProviders>
       </body>
     </html>
   );

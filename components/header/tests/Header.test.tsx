@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from '../Header';
 import { GlobalContextProvider } from '@/components/providers/GlobalContextProvider';
@@ -16,6 +16,8 @@ jest.mock('next/navigation', () => ({
     push: jest.fn(),
   }),
 }));
+
+afterEach(cleanup);
 
 describe('Header Component', () => {
   test('renders logo title', () => {

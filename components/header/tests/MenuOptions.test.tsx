@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MenuOptions from '../MenuOptions';
 import { GlobalContextProvider } from '@/components/providers/GlobalContextProvider';
@@ -14,6 +14,8 @@ jest.mock('next/navigation', () => ({
     push: jest.fn(),
   }),
 }));
+
+afterEach(cleanup);
 
 describe('MenuOptions Component', () => {
   test('renders menu button', () => {

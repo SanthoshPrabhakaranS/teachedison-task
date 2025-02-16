@@ -1,26 +1,39 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import WeatherMain from '../WeatherMain';
 import { Weather } from '../types';
-import Image, { ImageProps } from 'next/image';
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: ImageProps) => <Image alt={props.alt} src={props.src} />,
+  default: (props: { alt: string; src: string }) => <img {...props} />,
 }));
 
-jest.mock('../../../loaders/WeatherMainLoader', () =>
-  jest.fn(() => <div data-testid='weather-loader' />)
-);
-jest.mock('../../../../components/map/DynamicMap', () =>
-  jest.fn(() => <div data-testid='map' />)
-);
+jest.mock('../../../loaders/WeatherMainLoader', () => {
+  const WeatherMainLoader = () => <div data-testid='weather-loader' />;
+  WeatherMainLoader.displayName = 'WeatherMainLoader';
+  return WeatherMainLoader;
+});
+
+jest.mock('../../../../components/map/DynamicMap', () => () => (
+  <div data-testid='map'></div>
+));
 
 jest.mock('lucide-react', () => ({
-  Heart: () => <svg data-testid='heart-icon'></svg>,
-  Wind: () => <svg data-testid='wind-icon'></svg>,
-  Droplets: () => <svg data-testid='humidity-icon'></svg>,
+  __esModule: true,
+  Heart: () => <svg data-testid='heart-icon' />,
+  Wind: () => <svg data-testid='wind-icon' />,
+  Droplets: () => <svg data-testid='humidity-icon' />,
 }));
+
+afterEach(() => {
+  jest.clearAllMocks();
+  jest.restoreAllMocks();
+});
+
+beforeEach(() => {
+  cleanup();
+  jest.clearAllMocks();
+});
 
 describe('WeatherMain Component', () => {
   const mockWeatherData: Weather = {
@@ -39,10 +52,6 @@ describe('WeatherMain Component', () => {
   };
 
   const mockAddLocationToFavorite = jest.fn();
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
 
   test('renders loading state when loading is true', () => {
     render(

@@ -3,15 +3,19 @@ import '@testing-library/jest-dom';
 import WeatherForNextDays from '../WeatherForNextDays';
 import { ForecastType } from '../types';
 
-jest.mock('../../../loaders/ForecastLoader', () =>
-  jest.fn(() => <div data-testid='forecast-loader' />)
-);
+jest.mock('../../../loaders/ForecastLoader', () => {
+  const ForecastLoader = () => <div data-testid='forecast-loader' />;
+  ForecastLoader.displayName = 'ForecastLoader';
+  return ForecastLoader;
+});
 
-jest.mock('../../../error-body', () =>
-  jest.fn(({ description }) => (
+jest.mock('../../../error-body', () => {
+  const ErrorLayout = ({ description }: { description: string }) => (
     <div data-testid='error-layout'>{description}</div>
-  ))
-);
+  );
+  ErrorLayout.displayName = 'ErrorLayout';
+  return ErrorLayout;
+});
 
 jest.mock('lucide-react', () => ({
   ThermometerSun: () => <svg data-testid='thermometer-icon' />,
@@ -41,7 +45,7 @@ describe('WeatherForNextDays Component', () => {
   test('renders loading state when isLoading is true', () => {
     render(
       <WeatherForNextDays
-        data={undefined}
+        data={null}
         isLoading={true}
         isError={false}
         isWeatherMainLoading={false}
@@ -55,7 +59,7 @@ describe('WeatherForNextDays Component', () => {
   test('renders loading state when isWeatherMainLoading is true', () => {
     render(
       <WeatherForNextDays
-        data={undefined}
+        data={null}
         isLoading={false}
         isError={false}
         isWeatherMainLoading={true}
@@ -69,7 +73,7 @@ describe('WeatherForNextDays Component', () => {
   test('renders error layout when there is an error', () => {
     render(
       <WeatherForNextDays
-        data={undefined}
+        data={null}
         isLoading={false}
         isError={true}
         isWeatherMainLoading={false}

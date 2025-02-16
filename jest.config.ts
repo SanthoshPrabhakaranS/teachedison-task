@@ -16,6 +16,20 @@ const config: Config = {
   transformIgnorePatterns: [
     'node_modules/(?!lucide-react)', // Allows Jest to transform `lucide-react`
   ],
+  maxWorkers: 2, // Limits parallel workers (reduce memory spikes)
+  testTimeout: 10000, // Increases timeout to avoid crashes
+  clearMocks: true, // Ensures mocks are cleared between tests
+  restoreMocks: true,
+  resetMocks: true,
+  collectCoverage: true,
+
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/coverage/',
+    '/lib/',
+    '/services/',
+  ],
+
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };

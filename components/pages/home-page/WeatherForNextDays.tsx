@@ -9,7 +9,7 @@ import ScrollContainer from 'react-indiana-drag-scroll';
 import { Icons } from '@/public/assets/icons';
 
 interface WeatherForNextDaysProps {
-  data: ForecastType[] | undefined;
+  data: ForecastType[] | null;
   isLoading: boolean;
   isError: boolean;
   isWeatherMainLoading: boolean;

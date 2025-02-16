@@ -1,13 +1,13 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import WeatherCard from '../WeatherCard';
 import { Weather } from '../../home-page/types';
-import Image from 'next/image';
 
+// Mock Next.js Image Component with a simple <img> instead of <Image>
 jest.mock('next/image', () => ({
   __esModule: true,
   default: ({ src, alt }: { src: string; alt: string }) => (
-    <Image src={src} alt={alt} data-testid='weather-icon' />
+    <img src={src} alt={alt} data-testid='weather-icon' />
   ),
 }));
 
@@ -15,7 +15,7 @@ jest.mock('lucide-react', () => ({
   ThermometerSun: () => <svg data-testid='weather-icon'></svg>,
   Wind: () => <svg data-testid='wind-icon'></svg>,
   Droplets: () => <svg data-testid='droplets-icon'></svg>,
-  CircleGauge: () => <svg data-testid='circle-guage-icon'></svg>,
+  CircleGauge: () => <svg data-testid='circle-gauge-icon'></svg>,
 }));
 
 describe('WeatherCard Component', () => {
@@ -34,7 +34,16 @@ describe('WeatherCard Component', () => {
     coord: { lat: 40.7128, lon: -74.006 },
   };
 
-  const mockAddLocationToFavorite = jest.fn();
+  let mockAddLocationToFavorite: jest.Mock;
+
+  beforeEach(() => {
+    mockAddLocationToFavorite = jest.fn();
+  });
+
+  afterEach(() => {
+    cleanup(); // Ensures all components are unmounted after each test
+    jest.clearAllMocks(); // Clears mock function calls between tests
+  });
 
   test('renders weather details correctly', () => {
     render(
@@ -48,10 +57,9 @@ describe('WeatherCard Component', () => {
     expect(screen.getByText('12:00 PM')).toBeInTheDocument();
     expect(screen.getByText('25°C')).toBeInTheDocument();
     expect(screen.getByText('Sunny')).toBeInTheDocument();
-    expect(screen.getAllByTestId('weather-icon')[0]).toHaveAttribute(
-      'src',
-      '/weather-icon.png'
-    );
+
+    const weatherIcon = screen.getAllByTestId('weather-icon')[0];
+    expect(weatherIcon).toHaveAttribute('src', '/weather-icon.png');
   });
 
   test('calls addLocationToFavorite when clicking "Remove" button', () => {
@@ -61,9 +69,10 @@ describe('WeatherCard Component', () => {
         addLocationToFavorite={mockAddLocationToFavorite}
       />
     );
-    const removeButton = screen.getByRole('button', { name: 'Remove' });
 
+    const removeButton = screen.getByRole('button', { name: 'Remove' });
     fireEvent.click(removeButton);
+
     expect(mockAddLocationToFavorite).toHaveBeenCalledTimes(1);
     expect(mockAddLocationToFavorite).toHaveBeenCalledWith('New York');
   });

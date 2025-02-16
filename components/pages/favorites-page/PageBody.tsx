@@ -23,20 +23,20 @@ const PageBody: FC<PageBodyProps> = ({
     return <FavoriteCardLoader />;
   }
 
-  if (data?.length === 0) {
-    return (
-      <div className='w-full flex justify-center items-center h-[50vh]'>
-        <p className='font-semibold'>No data found!</p>
-      </div>
-    );
-  }
-
   if (isError) {
     return (
       <ErrorLayout
         className='font-semibold text-lg'
         description='Something went wrong!'
       />
+    );
+  }
+
+  if (data?.length === 0 || !data) {
+    return (
+      <div className='w-full flex justify-center items-center h-[50vh]'>
+        <p className='font-semibold'>No data found!</p>
+      </div>
     );
   }
 

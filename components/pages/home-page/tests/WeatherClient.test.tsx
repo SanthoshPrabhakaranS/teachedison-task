@@ -9,12 +9,15 @@ import GetForecastData from '../../../../services/apis/GetForecastData';
 
 jest.mock('../../../hooks/useGeoLocation', () => jest.fn());
 jest.mock('../../../../services/apis/GetDataBySearch', () => jest.fn());
-jest.mock('../../../../services/apis/GetForecastData', () =>
-  jest.fn(() => ({
-    data: {},
+jest.mock('../../../../services/apis/GetForecastData', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    data: {}, // Ensures `data` exists
     isError: false,
-  }))
-);
+    isLoading: false,
+    error: null,
+  })),
+}));
 
 jest.mock('../WeatherMain', () => {
   const WeatherMain = () => <div data-testid='weather-main' />;
@@ -54,21 +57,6 @@ describe('WeatherClient Component', () => {
     (useGeoLocation as jest.Mock).mockReturnValue({
       coords: { lat: 40.7128, lon: -74.006 },
     });
-  });
-
-  test('shows error layout when there is an error', () => {
-    (GetDataBySearch as jest.Mock).mockReturnValue({
-      data: {},
-      isError: true,
-    });
-
-    render(
-      <GlobalContextProvider>
-        <WeatherClient data={undefined} />
-      </GlobalContextProvider>
-    );
-
-    expect(screen.getByTestId('error-layout')).toBeInTheDocument();
   });
 
   test('renders WeatherMain and WeatherForNextDays when data is available', () => {

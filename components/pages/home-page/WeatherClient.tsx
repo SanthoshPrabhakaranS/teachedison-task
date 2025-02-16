@@ -30,12 +30,15 @@ const WeatherClient: FC<WeatherClientProps> = ({ data }) => {
     lon: coords?.lon,
     pathname,
   });
+  const forecastResponse =
+    GetForecastData(fetchedData?.coord || data?.coord) || {};
+
   const {
-    data: forecastData,
+    data: forecastData = null,
     isError: isForecastError,
     isLoading: isForecastLoading,
     error: forecastError,
-  } = GetForecastData(fetchedData?.coord || data?.coord);
+  } = forecastResponse;
 
   const weatherData = fetchedData || data;
 
