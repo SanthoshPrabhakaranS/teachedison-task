@@ -2,10 +2,11 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import WeatherMain from '../WeatherMain';
 import { Weather } from '../types';
+import Image, { ImageProps } from 'next/image';
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => <img alt={props.alt} src={props.src} />,
+  default: (props: ImageProps) => <Image alt={props.alt} src={props.src} />,
 }));
 
 jest.mock('../../../loaders/WeatherMainLoader', () =>

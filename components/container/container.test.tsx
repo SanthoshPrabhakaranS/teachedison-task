@@ -3,6 +3,10 @@ import '@testing-library/jest-dom';
 import Container from './Container';
 
 test('renders Container component', () => {
-  render(<Container children={<div>Hello</div>} />);
+  render(
+    <Container>
+      <div>Hello</div>
+    </Container>
+  );
   expect(screen.getByText('Hello')).toBeInTheDocument();
 });

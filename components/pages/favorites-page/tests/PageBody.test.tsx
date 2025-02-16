@@ -3,20 +3,27 @@ import '@testing-library/jest-dom';
 import PageBody from '../PageBody';
 import { Weather } from '../../home-page/types';
 
-jest.mock('../../../loaders/FavoriteCardLoader', () => () => (
-  <div data-testid='favorite-card-loader' />
-));
+jest.mock('../../../loaders/FavoriteCardLoader', () => {
+  const FavoriteCardLoader = () => <div data-testid='favorite-card-loader' />;
+  FavoriteCardLoader.displayName = 'FavoriteCardLoader';
+  return FavoriteCardLoader;
+});
 
-jest.mock(
-  '../../../error-body',
-  () =>
-    ({ description }: { description: string }) =>
-      <div data-testid='error-layout'>{description}</div>
-);
+jest.mock('../../../error-body', () => {
+  const ErrorLayout = ({ description }: { description: string }) => (
+    <div data-testid='error-layout'>{description}</div>
+  );
+  ErrorLayout.displayName = 'ErrorLayout';
+  return ErrorLayout;
+});
 
-jest.mock('../WeatherCard', () => ({ favorite }: { favorite: Weather }) => (
-  <div data-testid='weather-card'>{favorite.cityName}</div>
-));
+jest.mock('../WeatherCard', () => {
+  const WeatherCard = ({ favorite }: { favorite: Weather }) => (
+    <div data-testid='weather-card'>{favorite.cityName}</div>
+  );
+  WeatherCard.displayName = 'WeatherCard';
+  return WeatherCard;
+});
 
 describe('PageBody Component', () => {
   test('renders loader when loading', () => {

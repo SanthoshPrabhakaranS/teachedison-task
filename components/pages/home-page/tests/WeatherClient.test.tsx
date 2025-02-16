@@ -16,13 +16,23 @@ jest.mock('../../../../services/apis/GetForecastData', () =>
   }))
 );
 
-jest.mock('../WeatherMain', () => () => <div data-testid='weather-main' />);
-jest.mock('../WeatherForNextDays', () => () => (
-  <div data-testid='weather-forecast' />
-));
-jest.mock('../../../error-body/ErrorLayout', () => () => (
-  <div data-testid='error-layout' />
-));
+jest.mock('../WeatherMain', () => {
+  const WeatherMain = () => <div data-testid='weather-main' />;
+  WeatherMain.displayName = 'WeatherMain';
+  return WeatherMain;
+});
+
+jest.mock('../WeatherForNextDays', () => {
+  const WeatherForNextDays = () => <div data-testid='weather-forecast' />;
+  WeatherForNextDays.displayName = 'WeatherForNextDays';
+  return WeatherForNextDays;
+});
+
+jest.mock('../../../error-body/ErrorLayout', () => {
+  const ErrorLayout = () => <div data-testid='error-layout' />;
+  ErrorLayout.displayName = 'ErrorLayout';
+  return ErrorLayout;
+});
 
 describe('WeatherClient Component', () => {
   const mockWeatherData: Weather = {

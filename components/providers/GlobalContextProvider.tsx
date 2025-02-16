@@ -35,7 +35,7 @@ export const GlobalContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const storage = new Storage();
+  const storage = useMemo(() => new Storage(), []);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchInput, setSearchInput] = useState<string>('');
@@ -45,7 +45,7 @@ export const GlobalContextProvider = ({
       const list = storage.getItem('favorites') || [];
       setFavorites(list);
     }
-  }, []);
+  }, [storage]);
 
   // Add location to favorite
   const addLocationToFavorite = useCallback(

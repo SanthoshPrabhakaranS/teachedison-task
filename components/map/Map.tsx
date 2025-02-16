@@ -16,14 +16,14 @@ interface MapProps {
 }
 
 const Map: FC<MapProps> = ({ lat, lon }) => {
-  const defaultPosition = [51.505, -0.09];
+  const defaultPosition = useMemo(() => [51.505, -0.09], []);
   const position = useMemo(() => {
     if (lat && lon) {
       return [lat, lon];
     }
 
     return defaultPosition;
-  }, [lat, lon]);
+  }, [lat, lon, defaultPosition]);
 
   return (
     <MapContainer

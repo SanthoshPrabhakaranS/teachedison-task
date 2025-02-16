@@ -2,11 +2,12 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import WeatherCard from '../WeatherCard';
 import { Weather } from '../../home-page/types';
+import Image from 'next/image';
 
 jest.mock('next/image', () => ({
   __esModule: true,
   default: ({ src, alt }: { src: string; alt: string }) => (
-    <img src={src} alt={alt} data-testid='weather-icon' />
+    <Image src={src} alt={alt} data-testid='weather-icon' />
   ),
 }));
 
