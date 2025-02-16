@@ -3,9 +3,7 @@ import { AXIOS_INSTANCE } from '../axios/axios';
 import { ENDPOINTS } from '../endpoints/endpoints';
 import { convertAPIDataToForecast } from '@/lib/utils';
 
-export const GetForecastData = (
-  coord: { lat: number; lon: number } | undefined
-) => {
+const GetForecastData = (coord: { lat: number; lon: number } | undefined) => {
   return useQuery({
     queryKey: ['GetForecastData', coord],
     queryFn: async () => {
@@ -18,3 +16,5 @@ export const GetForecastData = (
     enabled: !!coord,
   });
 };
+
+export default GetForecastData;

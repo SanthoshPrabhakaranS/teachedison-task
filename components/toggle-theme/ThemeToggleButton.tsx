@@ -1,11 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
+import { Icons } from '@/public/assets/icons';
 
-const ThemeToggle = () => {
+const ThemeToggleButton = () => {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
@@ -20,13 +20,13 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
     >
       {theme === 'dark' ? (
-        <Sun className='h-5 w-5 transition-transform duration-300 rotate-0 scale-100' />
+        <Icons.SunIcon className='h-5 w-5 transition-transform duration-300 rotate-0 scale-100' />
       ) : (
-        <Moon className='h-5 w-5 transition-transform duration-300 rotate-0 scale-100' />
+        <Icons.MoonIcon className='h-5 w-5 transition-transform duration-300 rotate-0 scale-100' />
       )}
       <span className='sr-only'>Toggle theme</span>
     </Button>
   );
 };
 
-export default ThemeToggle;
+export default ThemeToggleButton;

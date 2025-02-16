@@ -1,10 +1,10 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { SearchX, ServerOff, WifiOff } from 'lucide-react';
 import React, { FC, useCallback } from 'react';
 import { Button } from '../ui/button';
 import ErrorBody from './ErrorBody';
+import { Icons } from '@/public/assets/icons';
 
 interface ErrorLayoutProps {
   description: string;
@@ -25,20 +25,12 @@ const ErrorLayout: FC<ErrorLayoutProps> = ({
     if (!error) return description;
 
     if (error.message) {
-      switch (error.message.toLowerCase()) {
-        case 'No internet connection':
-          return (
-            <ErrorBody
-              description='No internet Connection!'
-              Icon={<WifiOff size={40} />}
-            />
-          );
-
+      switch (error.message) {
         case 'city not found':
           return (
             <ErrorBody
               description='City not found!'
-              Icon={<SearchX size={40} />}
+              Icon={<Icons.SearchXIcon size={40} />}
             />
           );
 
@@ -46,7 +38,7 @@ const ErrorLayout: FC<ErrorLayoutProps> = ({
           return (
             <ErrorBody
               description='Something went Wrong'
-              Icon={<ServerOff size={40} />}
+              Icon={<Icons.ServerOffIcon size={40} />}
             />
           );
       }

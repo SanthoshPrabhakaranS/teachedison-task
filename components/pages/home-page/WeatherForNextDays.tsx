@@ -5,8 +5,8 @@ import { format } from 'date-fns';
 import ForecastLoader from '../../loaders/ForecastLoader';
 import ErrorLayout from '../../error-body';
 import Image from 'next/image';
-import { Droplets, ThermometerSun, Wind } from 'lucide-react';
 import ScrollContainer from 'react-indiana-drag-scroll';
+import { Icons } from '@/public/assets/icons';
 
 interface WeatherForNextDaysProps {
   data: ForecastType[] | undefined;
@@ -36,6 +36,7 @@ const WeatherForNextDays: FC<WeatherForNextDaysProps> = ({
       />
     );
   }
+
   return (
     <ScrollContainer className='w-full flex flex-row items-center gap-4 overflow-x-scroll hover:cursor-grab select-none'>
       {data?.map((day, Idx: number) => {
@@ -68,19 +69,19 @@ const WeatherForNextDays: FC<WeatherForNextDaysProps> = ({
 
                 <div className='flex flex-col gap-1 text-[8px] sm:text-[10px] font-semibold'>
                   <div className='flex flex-row items-center gap-1'>
-                    <ThermometerSun size={12} />
+                    <Icons.ThermometerIcon size={12} />
                     <p className=''>High: {day.tempMax}</p>
                   </div>
                   <div className='flex flex-row items-center gap-1'>
-                    <ThermometerSun size={12} />
+                    <Icons.ThermometerIcon size={12} />
                     <p className=''>Low: {day.tempMin}</p>
                   </div>
                   <div className='flex flex-row items-center gap-1'>
-                    <Wind size={12} />
+                    <Icons.WindIcon size={12} />
                     <p className=''>Wind: {day.windSpeed}</p>
                   </div>
                   <div className='flex flex-row items-center gap-1'>
-                    <Droplets size={12} />
+                    <Icons.DropletsIcon size={12} />
                     <p className=''>Humidity: {day.humidity}</p>
                   </div>
                 </div>

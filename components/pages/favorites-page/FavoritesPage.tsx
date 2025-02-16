@@ -3,9 +3,9 @@
 import React, { useCallback, useMemo } from 'react';
 import GetDataForAllCities from '@/services/apis/GetDataForAllCities';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 import { useGlobalContext } from '@/components/providers/GlobalContextProvider';
 import PageBody from './PageBody';
+import { Icons } from '@/public/assets/icons';
 
 const FavoritesPage = () => {
   const { data, isLoading, isError } = GetDataForAllCities();
@@ -31,7 +31,7 @@ const FavoritesPage = () => {
         className='flex flex-row items-center gap-2 cursor-pointer'
         onClick={handleBack}
       >
-        <ArrowLeft size={20} />
+        <Icons.ArrowLeftIcon size={20} />
         <p className='font-semibold text-[20px]'>Favorite Locations</p>
       </div>
 

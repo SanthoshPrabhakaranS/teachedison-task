@@ -10,8 +10,8 @@ import {
 } from '@/components/ui/card';
 import Image from 'next/image';
 import { Weather } from '../home-page/types';
-import { CircleGauge, Droplets, ThermometerSun, Wind } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Icons } from '@/public/assets/icons';
 
 interface WeatherCardProps {
   favorite: Weather;
@@ -36,7 +36,13 @@ const WeatherCard: FC<WeatherCardProps> = ({
       <CardContent className='flex flex-row justify-between items-center gap-5'>
         <div className='flex flex-col'>
           <p className='text-[40px] font-bold'>{favorite.temperature}</p>
-          <Image src={favorite.weatherIcon} alt='icon' width={70} height={70} />
+          <Image
+            data-test-id='weather-image'
+            src={favorite.weatherIcon}
+            alt='icon'
+            width={70}
+            height={70}
+          />
           <p className='text-sm font-medium text-muted-foreground'>
             {favorite.weatherDescription}
           </p>
@@ -44,24 +50,24 @@ const WeatherCard: FC<WeatherCardProps> = ({
 
         <div className='flex flex-col gap-1 text-[8px] sm:text-[13px] font-semibold'>
           <div className='flex flex-row items-center gap-1'>
-            <ThermometerSun size={15} />
-            <p className=''>High: {favorite.tempHigh}</p>
+            <Icons.ThermometerIcon size={15} />
+            <p>High: {favorite.tempHigh}</p>
           </div>
           <div className='flex flex-row items-center gap-1'>
-            <ThermometerSun size={15} />
-            <p className=''>Low: {favorite.tempLow}</p>
+            <Icons.ThermometerIcon size={15} />
+            <p>Low: {favorite.tempLow}</p>
           </div>
           <div className='flex flex-row items-center gap-1'>
-            <Wind size={15} />
-            <p className=''>Wind: {favorite.windSpeed}</p>
+            <Icons.WindIcon size={15} />
+            <p>Wind: {favorite.windSpeed}</p>
           </div>
           <div className='flex flex-row items-center gap-1'>
-            <Droplets size={15} />
-            <p className=''>Humidity: {favorite.humidity}</p>
+            <Icons.DropletsIcon size={15} />
+            <p>Humidity: {favorite.humidity}</p>
           </div>
           <div className='flex flex-row items-center gap-1'>
-            <CircleGauge size={15} />
-            <p className=''>Pressure: {favorite.pressure}</p>
+            <Icons.CircleGaugeIcon size={15} />
+            <p>Pressure: {favorite.pressure}</p>
           </div>
         </div>
       </CardContent>

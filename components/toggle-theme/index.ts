@@ -1,3 +1,3 @@
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from './ThemeToggleButton';
 
 export default ThemeToggle;

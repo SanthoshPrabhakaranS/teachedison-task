@@ -18,7 +18,7 @@ export interface Weather {
 
 export interface ForecastType {
   date: string;
-  temperature: number;
+  temperature: string;
   weatherDescription: string;
   weatherIcon: string;
   windSpeed: string;

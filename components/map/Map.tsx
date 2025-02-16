@@ -1,9 +1,9 @@
 'use client';
 
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { icon } from 'leaflet';
+import { icon, LatLngTuple } from 'leaflet';
 
 const ICON = icon({
   iconUrl: '/marker.png',
@@ -16,21 +16,35 @@ interface MapProps {
 }
 
 const Map: FC<MapProps> = ({ lat, lon }) => {
+  const defaultPosition = [51.505, -0.09];
+  const position = useMemo(() => {
+    if (lat && lon) {
+      return [lat, lon];
+    }
+
+    return defaultPosition;
+  }, [lat, lon]);
+
   return (
     <MapContainer
+      data-testid='map'
+      data-lat={position[0]}
+      data-lon={position[1]}
       className='h-full w-full rounded-lg'
-      center={lat && lon ? [lat, lon] : [51.505, -0.09]}
+      center={position as LatLngTuple}
       zoom={13}
       scrollWheelZoom={false}
     >
       <TileLayer
+        data-testid='tile-layer'
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
       <Marker
+        data-testid='marker'
         icon={ICON}
-        position={lat && lon ? [lat, lon] : [51.505, -0.09]}
-      ></Marker>
+        position={position as LatLngTuple}
+      />
     </MapContainer>
   );
 };

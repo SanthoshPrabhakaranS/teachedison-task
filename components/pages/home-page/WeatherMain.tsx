@@ -2,7 +2,6 @@
 
 import React, { FC } from 'react';
 import Image from 'next/image';
-import { Droplets, Wind } from 'lucide-react';
 import { Weather } from './types';
 import { cn, getGreetingFromTime } from '@/lib/utils';
 import WeatherMainLoader from '../../loaders/WeatherMainLoader';
@@ -77,11 +76,11 @@ const WeatherMain: FC<WeatherMainProps> = ({
 
             <div className='flex flex-col gap-2 font-semibold text-[14px] lg:text-[16px]'>
               <div className='flex flex-row items-center gap-4'>
-                <Wind />
+                <Icons.WindIcon />
                 <p>{data?.windSpeed}</p>
               </div>
               <div className='flex flex-row items-center gap-4'>
-                <Droplets />
+                <Icons.DropletsIcon />
                 <p>{data?.humidity}</p>
               </div>
             </div>

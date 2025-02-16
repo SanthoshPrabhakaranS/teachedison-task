@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import { Search } from 'lucide-react';
+import { Icons } from '@/public/assets/icons';
 
 interface InputProps extends React.ComponentProps<'input'> {
   containerClassName?: string;
@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           containerClassName
         )}
       >
-        <Search size={20} />
+        <Icons.SearchIcon size={20} />
         <input
           type={type}
           className={cn(

@@ -2,13 +2,13 @@
 
 import React, { useCallback, useEffect } from 'react';
 import { Input } from '../ui/input';
-import ThemeToggle from '../toggle-theme';
 import { useWindowWidth } from '../hooks/useWindowWidth';
 import MenuOptions from './MenuOptions';
 import { useGlobalContext } from '../providers/GlobalContextProvider';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/lib/constants';
+import ThemeToggleButton from '../toggle-theme/ThemeToggleButton';
 
 const Header = () => {
   const windowWidth = useWindowWidth();
@@ -54,7 +54,7 @@ const Header = () => {
       />
 
       <div className='flex flex-row items-center gap-2'>
-        <ThemeToggle />
+        <ThemeToggleButton />
         <MenuOptions />
       </div>
     </div>
