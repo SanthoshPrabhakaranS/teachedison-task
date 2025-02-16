@@ -14,9 +14,11 @@ jest.mock('../../../loaders/WeatherMainLoader', () => {
   return WeatherMainLoader;
 });
 
-jest.mock('../../../../components/map/DynamicMap', () => () => (
-  <div data-testid='map'></div>
-));
+jest.mock('../../../../components/map/DynamicMap', () => {
+  const DynamicMap = () => <div data-testid='map'></div>;
+  DynamicMap.displayName = 'DynamicMap';
+  return DynamicMap;
+});
 
 jest.mock('lucide-react', () => ({
   __esModule: true,
